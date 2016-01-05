@@ -4,14 +4,14 @@ using System.Collections;
 [RequireComponent (typeof (MeshRenderer))]
 public class SolidObstacle : Obstacle {
 
-	MeshRenderer renderer;
+	MeshRenderer meshRenderer;
 
 	public void Awake()
 	{
-		renderer = GetComponent<MeshRenderer>();
+		meshRenderer = GetComponent<MeshRenderer>();
 	}
 
 	public override void setColor(Color color){
-		renderer.material.color = color;
+		meshRenderer.material.color = color;
 	}
 }
