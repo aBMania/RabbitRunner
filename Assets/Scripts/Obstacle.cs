@@ -8,21 +8,17 @@ public class Obstacle : MonoBehaviour
     public Collider obstacleCollider;
     public ObstacleColor color;
 
-    void Update()
-    {
+    void Update() {
 
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == player)
-        {
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject == player) {
             onPlayerHit();
         }
     }
 
-    void onPlayerHit()
-    {
-        
+    void onPlayerHit() {
+		Debug.Log ("player");   
     }
 }
