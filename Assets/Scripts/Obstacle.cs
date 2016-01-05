@@ -2,48 +2,68 @@
 using System.Collections;
 using System;
 
-[RequireComponent(typeof(MeshRenderer))]
-
 public class Obstacle : MonoBehaviour
 {
     public GameObject player;
+	public ObstacleColor color;
     PlayerController playerController;
-    Color color;
 
-<<<<<<< HEAD
-    void Start()
+    public void Start()
     {
-        playerController = player.GetComponent<PlayerController>();
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        color = renderer.material.color;
-=======
-    void Update() {
-
->>>>>>> 2830b7970ed547a98ce8b8835065b7f21730564b
-    }
+		playerController = player.GetComponent<PlayerController>();
+		setColor (getRealColor(color));
+	}
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject == player) {
             onPlayerHit();
         }
     }
-
-<<<<<<< HEAD
+			
     void onPlayerHit()
-    {
-        Color playerColor = playerController.getColor();
+	{
+		ObstacleColor playerColor = playerController.getColor ();
 
-        if(playerColor == color || color == Color.white)
-        {
-            Debug.Log("Le joueur meurt");
-            return;
-        }
+		if (playerColor == color || color == ObstacleColor.White) {
+			Debug.Log ("Le joueur meurt");
+			return;
+		}
 
-        playerController.setColor(color);
-        
-=======
-    void onPlayerHit() {
-		Debug.Log ("player");   
->>>>>>> 2830b7970ed547a98ce8b8835065b7f21730564b
-    }
+		playerController.setColor (getRealColor(color));
+	}
+
+	public virtual void setColor(Color color)
+	{
+		
+	}
+
+	public void setColor(ObstacleColor color)
+	{
+		this.color = color;
+		setColor(getRealColor (color));
+	}
+
+	public Color getRealColor(ObstacleColor color)
+	{
+		Color realColor;
+
+		switch(color)
+		{
+		case ObstacleColor.Blue:
+			realColor = Color.blue;
+			break;
+		case ObstacleColor.Green:
+			realColor = Color.green;
+			break;
+		case ObstacleColor.Red:
+			realColor = Color.red;
+			break;
+		case ObstacleColor.White:
+		default:
+			realColor = Color.white;
+			break;
+		}
+
+		return realColor;
+	}
 }

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	float timeElapsed;
 	float direction;
 	float smoothing;
-    Color color = Color.white;
+	ObstacleColor color = ObstacleColor.White;
 
     // Use this for initialization
     void Start() {
@@ -49,19 +49,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-    public Color getColor()
+	public ObstacleColor getColor()
     {
         return color;
     }
 
-    public void setColor(Color color)
+	public void setColor(Color color)
     {
-        this.color = color;
-        Debug.Log("le joueur devient " + color);
-
         MeshRenderer renderer = GetComponent<MeshRenderer>();
-
-        renderer.material.color = color;
+		renderer.material.color = color;
     }
 
 }
