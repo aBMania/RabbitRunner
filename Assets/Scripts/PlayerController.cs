@@ -3,29 +3,35 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public float angularSpeed;
-	public float speed;
+	float angularSpeed;
+	float speed;
+	float timeElapsed;
+	float direction;
+	float smoothing;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start() {
+		angularSpeed = 300f;
+		speed = 20f;
+		timeElapsed = 0f;
+		smoothing = 2.5f;
 	}
 
-	void Update () {
-		float v = Input.GetAxis ("Horizontal");
+	void Update() {
+		direction = Input.GetAxis("Horizontal");
+		timeElapsed += Time.deltaTime;
+		speed += Time.deltaTime * smoothing;
 
-		Tourner (v);
-		Avancer ();
+		turn(direction);
+		moveForward();
 	}
 
-	void Tourner (float v)
-	{
-		float angle = v * angularSpeed * Time.deltaTime;
+	void turn(float direction) {
+		float angle = direction * angularSpeed * Time.deltaTime;
 		transform.RotateAround(Vector3.zero, Vector3.forward, angle);
 	}
 
-	void Avancer ()
-	{
+	void moveForward()	{
 		float distance = speed * Time.deltaTime;
 		transform.Translate (transform.forward * distance); 
 	}
