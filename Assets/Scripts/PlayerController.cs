@@ -3,8 +3,9 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+	static float speed;
+	static float distance;
 	float angularSpeed;
-	float speed;
 	float timeElapsed;
 	float direction;
 	float smoothing;
@@ -32,7 +33,16 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void moveForward()	{
-		float distance = speed * Time.deltaTime;
-		transform.Translate (transform.forward * distance); 
+		float tempdistance = speed * Time.deltaTime;
+		transform.Translate (transform.forward * tempdistance);
+		distance = transform.position.z;
+	}
+
+	public static float getSpeed() {
+		return speed;
+	}
+
+	public static float getDistance() {
+		return distance;
 	}
 }
