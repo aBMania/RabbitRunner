@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CylinderGenerator : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public GameObject cylinder;
+
+    public GameObject newCylinder(Vector3 position, Quaternion rotation, bool firstCylinder = false)
+    {
+        return Instantiate(cylinder, position, rotation) as GameObject;
+    }
 }

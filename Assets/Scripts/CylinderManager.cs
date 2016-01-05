@@ -3,19 +3,19 @@ using System.Collections;
 
 public class CylinderManager : MonoBehaviour {
 
-	public Transform cylinder;
 	public Transform playerTransform;
+    public CylinderGenerator CG;
 
-	int cylinderLength = 400;
+    int cylinderLength = 400;
 	int shift = 20;
 	Transform currentCylinder;
 	Transform frontCylinder;
+    
 
 	// Use this for initialization
 	void Start () {
-		// instantiation the first two cylinders
-		currentCylinder = Instantiate(cylinder, new Vector3(0, 0, 0), Quaternion.identity) as Transform;
-		frontCylinder = Instantiate(cylinder, new Vector3(0, 0, cylinderLength), Quaternion.identity) as Transform;
+        currentCylinder = CG.newCylinder(new Vector3(0, 0, 0), Quaternion.identity, true).transform;
+		frontCylinder = CG.newCylinder(new Vector3(0, 0, cylinderLength), Quaternion.identity).transform;
 	}
 	
 	// Update is called once per frame
@@ -23,11 +23,10 @@ public class CylinderManager : MonoBehaviour {
 		if (isPlayerAfterCurrentCylinder()) {
 			Destroy(currentCylinder.gameObject);
 			currentCylinder = frontCylinder;
-			frontCylinder = Instantiate(
-				cylinder, 
-				new Vector3(0, 0, cylinderLength + currentCylinder.transform.position.z), 
-				Quaternion.identity
-			) as Transform;
+            frontCylinder = CG.newCylinder(
+                new Vector3(0, 0, cylinderLength + currentCylinder.transform.position.z), 
+                Quaternion.identity
+            ).transform;
 		}
 	}
 
