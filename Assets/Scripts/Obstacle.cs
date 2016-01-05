@@ -2,15 +2,19 @@
 using System.Collections;
 using System;
 
+[RequireComponent(typeof(MeshRenderer))]
+
 public class Obstacle : MonoBehaviour
 {
     public GameObject player;
-    public Collider obstacleCollider;
-    public ObstacleColor color;
+    PlayerController playerController;
+    Color color;
 
-    void Update()
+    void Start()
     {
-
+        playerController = player.GetComponent<PlayerController>();
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        color = renderer.material.color;
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,6 +27,15 @@ public class Obstacle : MonoBehaviour
 
     void onPlayerHit()
     {
+        Color playerColor = playerController.getColor();
+
+        if(playerColor == color || color == Color.white)
+        {
+            Debug.Log("Le joueur meurt");
+            return;
+        }
+
+        playerController.setColor(color);
         
     }
 }

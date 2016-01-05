@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerController : MonoBehaviour {
 
@@ -9,10 +10,11 @@ public class PlayerController : MonoBehaviour {
 	float timeElapsed;
 	float direction;
 	float smoothing;
+    Color color = Color.white;
 
-	// Use this for initialization
-	void Start() {
-		angularSpeed = 300f;
+    // Use this for initialization
+    void Start() {
+		angularSpeed = 500f;
 		speed = 20f;
 		timeElapsed = 0f;
 		smoothing = 2.5f;
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 		moveForward();
 	}
 
-	void turn(float direction) {
+    void turn(float direction) {
 		float angle = direction * angularSpeed * Time.deltaTime;
 		transform.RotateAround(Vector3.zero, Vector3.forward, angle);
 	}
@@ -45,4 +47,21 @@ public class PlayerController : MonoBehaviour {
 	public static float getDistance() {
 		return distance;
 	}
+
+
+    public Color getColor()
+    {
+        return color;
+    }
+
+    public void setColor(Color color)
+    {
+        this.color = color;
+        Debug.Log("le joueur devient " + color);
+
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+
+        renderer.material.color = color;
+    }
+
 }
