@@ -55,8 +55,8 @@ public class PatternGenerator : MonoBehaviour {
 
 		patternList.Add(delegate (ObstacleGenerator OG) {
 			GameObject pattern = new GameObject();
-
 			List<GameObject> patternObstacles = new List<GameObject>();
+
 			for (int i = 1 ; i < 20 ; i++) {
 				patternObstacles.Add(OG.generateRopeLaser(zMin + i*patternLength/20, 1f, 10f*i, ObstacleColor.Green));
 			}
