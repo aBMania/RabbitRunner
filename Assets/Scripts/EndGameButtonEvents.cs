@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class EndGameButtonEvents : MonoBehaviour {
 
 	public void restartGame() {
-		Debug.Log ("Scene restarted");
+		SceneManager.LoadScene(0);
 	}
 }
