@@ -33,8 +33,7 @@ public class PatternGenerator : MonoBehaviour {
 
 		patternList.Add(delegate (ObstacleGenerator OG, List<ObstacleColor> randomColorList) {
 			List<GameObject> patternObstacles = new List<GameObject> {
-				OG.generateCylinderWall(zMin, randomColorList[0]),
-				//OG.generateHalfWall(zMin + patternLength/4, 0.5f, 0.25f, 35f, ObstacleColor.White),
+				OG.generateHalfWall(zMin + patternLength/4, 0.5f, 0.25f, 35f, ObstacleColor.White),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.1f, 15f, randomColorList[0]),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.2f, 15f, randomColorList[0]),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.3f, 15f, randomColorList[0]),
@@ -71,10 +70,10 @@ public class PatternGenerator : MonoBehaviour {
 		patternList.Add(delegate (ObstacleGenerator OG, List<ObstacleColor> randomColorList) {
 			List<GameObject> patternObstacles = new List<GameObject>();
 
-			patternObstacles.Add (OG.generateHalfWall(0f, 0.4f, 2f, 35f, ObstacleColor.White, 45f));
+			patternObstacles.Add(OG.generateHalfWall(0f, 0.4f, 2f, 35f, ObstacleColor.White, 45f));
 
-			for (int i = 0; i < 10; i++) {
-				patternObstacles.Add (OG.generateRopeLaser(0f, 0.1f * i, 0f, randomColorList [0]));
+			for (int i = 1; i <= 10; i++) {
+				patternObstacles.Add(OG.generateRopeLaser(0f, 0.1f * i, 0f, randomColorList [0]));
 			}
 
 			return patternObstacles;
@@ -88,6 +87,20 @@ public class PatternGenerator : MonoBehaviour {
 			patternObstacles.Add(OG.generateCircleWall(0f, 1f, 0.7f, 55, ObstacleColor.White, 25f));
 			patternObstacles.Add(OG.generateRopeLaser(patternLength/4, 0.8f, 0f, randomColorList[0], 35f));
 			patternObstacles.Add(OG.generateRopeLaser(patternLength/4, 0.8f, 90f, randomColorList[0], -35f));
+
+			return patternObstacles;
+		});
+
+		patternList.Add (delegate (ObstacleGenerator OG, List<ObstacleColor> randomColorList) {
+			List<GameObject> patternObstacles = new List<GameObject>();
+
+			for (int i = 0 ; i <= 6 ; i++) {
+				patternObstacles.Add(OG.generateRopeLaser(-patternLength/4, 0.1f*i, 0f, randomColorList[0], 15f));
+				patternObstacles.Add(OG.generateRopeLaser(-patternLength/4, 0.1f*(i+7), 0f, randomColorList[1], 15f));
+				patternObstacles.Add(OG.generateRopeLaser(-patternLength/4, 0.1f*(i+14), 0f, randomColorList[2], 15f));
+			}
+
+			patternObstacles.Add(OG.generateCylinderWall(patternLength/4, randomColorList[0]));
 
 			return patternObstacles;
 		});
