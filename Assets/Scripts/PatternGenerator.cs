@@ -67,6 +67,23 @@ public class PatternGenerator : MonoBehaviour {
 
 			return pattern;
 		});
+
+		patternList.Add (delegate (ObstacleGenerator OG) {
+			GameObject pattern = new GameObject ();
+
+			List<GameObject> patternObstacles = new List<GameObject> ();
+
+			for (int i = 0; i < 3; i++) {
+				// add rotation
+				patternObstacles.Add (OG.generateRopeLaser (zMin + i * patternLength / 3, 1f, 60f * i, ObstacleColor.Red));
+			}
+
+			foreach (GameObject obstacle in patternObstacles) {
+				obstacle.transform.SetParent (pattern.transform);
+			}
+
+			return pattern;
+		});
 	}
 
     void Awake()
