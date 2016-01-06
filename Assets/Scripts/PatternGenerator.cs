@@ -9,7 +9,7 @@ public class PatternGenerator : MonoBehaviour {
     static float patternLength = 100f;
     static float z0 = -patternLength/2;
 
-    void Start()
+    void Awake()
     {
         OG = GetComponent<ObstacleGenerator>();
     }
