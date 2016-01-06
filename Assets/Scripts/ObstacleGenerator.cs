@@ -31,20 +31,20 @@ public class ObstacleGenerator : MonoBehaviour {
 
 	public GameObject generateVerticalLaser(float z, ObstacleColor color)
 	{
-        return generateRopeLaser(z, cylinderRadius, 90, color);
+        return generateRopeLaser(z, 1, 90, color);
     }
 
 	public GameObject generateHorizontalLaser(float z, ObstacleColor color)
 	{
-		return generateRopeLaser (z, cylinderRadius, 0, color);
+		return generateRopeLaser (z, 1, 0, color);
 	}
 
     public GameObject generateRopeLaser(float z, float distanceToWall, float angle, ObstacleColor color)
     {        
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        Vector3 leftPoint = rotation * new Vector3(-cylinderRadius, distanceToWall - cylinderRadius, z);
-        Vector3 rightPoint = rotation * new Vector3(+cylinderRadius, distanceToWall - cylinderRadius, z);
+        Vector3 leftPoint = rotation * new Vector3(-cylinderRadius, (1-distanceToWall) * cylinderRadius, z);
+        Vector3 rightPoint = rotation * new Vector3(+cylinderRadius, (1 - distanceToWall) * cylinderRadius, z);
 
 
         return generateLaser(leftPoint, rightPoint, rotation, color);

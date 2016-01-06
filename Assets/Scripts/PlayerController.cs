@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	float timeElapsed;
 	float direction;
 	float smoothing;
+	float tempSpeed = 20f;
 	bool dead = false;
 	bool stopped;
 	ObstacleColor color = ObstacleColor.White;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void startRunning() {
 		angularSpeed = 500f;
-		speed = 20f;
+		speed = tempSpeed;
 		timeElapsed = 0f;
 		smoothing = 2.5f;
 		stopped = false;
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void stopRunning() {
 		angularSpeed = 0f;
+		tempSpeed = speed;
 		speed = 0f;
 		stopped = true;
 	}

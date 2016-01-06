@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour {
 			buttonClone.transform.SetParent(hudCanvas.transform);
 		}
 
-		// simulates click on button from joystick
-		if (Input.GetKeyDown("joystick 1 button 0") && buttonClone != null) {
+		// simulates click on button from joystick or on space key down
+		if ((Input.GetKeyDown("joystick 1 button 0") || Input.GetKeyDown("space")) && buttonClone != null) {
 			buttonClone.onClick.Invoke();
 		}
 
