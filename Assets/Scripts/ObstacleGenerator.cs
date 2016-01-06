@@ -23,8 +23,8 @@ public class ObstacleGenerator : MonoBehaviour {
 		obstacleController.setColor (color);
 
 		LineRenderer renderer = laserInstance.GetComponent<LineRenderer> ();
-		renderer.SetPosition(0, point1);
-		renderer.SetPosition(1, point2);
+		renderer.SetPosition(0, new Vector3(-1, 0, 0));
+		renderer.SetPosition(1, new Vector3(1, 0, 0));
 
 		return laserInstance;
 	}
