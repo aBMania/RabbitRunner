@@ -1,37 +1,54 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class PatternGenerator : MonoBehaviour {
 
-    ObstacleGenerator OG;
+    ObstacleGenerator obstacleGenerator;
     static float cylinderRadius = 5f;
     static float patternLength = 100f;
-    static float z0 = -patternLength/2;
+
+    static float zMin = -patternLength/2;
+    static float zMax = +patternLength/2;
+
+    static List<Pattern> patternList;
+
+    static PatternGenerator()
+    {
+        patternList = new List<Pattern>();
+
+        patternList.Add(delegate (ObstacleGenerator OG)
+        {
+
+            GameObject pattern = new GameObject();
+
+            List<GameObject> patternObstacles = new List<GameObject> {
+                OG.generateVerticalLaser (zMin, ObstacleColor.Blue),
+                OG.generateHorizontalLaser (zMin, ObstacleColor.Red),
+                OG.generateRopeLaser(0, 0.2f, 90, ObstacleColor.Green),
+                OG.generateRopeLaser(0, 0.2f, -90, ObstacleColor.Green),
+                //OG.generateHalfWall(0, 1, 0, ObstacleColor.White)
+            };
+
+            foreach (GameObject obstacle in patternObstacles)
+            {
+                obstacle.transform.SetParent(pattern.transform);
+            }
+
+            return pattern;
+
+        });
+    }
 
     void Awake()
     {
-        OG = GetComponent<ObstacleGenerator>();
+        obstacleGenerator = GetComponent<ObstacleGenerator>();
     }
 
 	public GameObject newPattern(int difficulty)
     {
-        GameObject pattern = new GameObject();
+        int r = Random.Range(0, patternList.Count - 1);
 
-        List<GameObject> cylinderObstacles = new List<GameObject> {
-            OG.generateVerticalLaser (z0, ObstacleColor.Blue),
-            OG.generateHorizontalLaser (z0, ObstacleColor.Red),
-            OG.generateRopeLaser(0, cylinderRadius, Random.Range(1, 180), ObstacleColor.Green),
-            OG.generateHalfWall(0, 1, 0, ObstacleColor.White)
-        };
-
-        foreach (GameObject obstacle in cylinderObstacles)
-        {
-            obstacle.transform.SetParent(pattern.transform);
-        }
-
-        return pattern;
-
+        return patternList[r](obstacleGenerator);
     }
 
     public float getPatternLength()

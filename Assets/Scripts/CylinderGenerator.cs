@@ -21,7 +21,9 @@ public class CylinderGenerator : MonoBehaviour {
     {
 		GameObject newCylinder = Instantiate(cylinder, position, rotation) as GameObject;
 
-        for (int i = 0; i < nPattern; i++)
+        Debug.Log(n);
+
+        for (int i = 0; i < n; i++)
         {
             GameObject pattern = PG.newPattern(0);
 
