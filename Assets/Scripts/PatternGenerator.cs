@@ -55,13 +55,27 @@ public class PatternGenerator : MonoBehaviour {
 		});
 
 		patternList.Add (delegate (ObstacleGenerator OG, List<ObstacleColor> randomColorList) {
-
 			List<GameObject> patternObstacles = new List<GameObject> ();
 
 			for (int i = 0; i < 3; i++) {
-				patternObstacles.Add (OG.generateRopeLaser(zMin + i * patternLength / 3, 1f, 60f * i, randomColorList[0], 30));
+				patternObstacles.Add(OG.generateRopeLaser(zMin + i * patternLength / 3, 1f, 60f * i, randomColorList[0], 30));
 			}
 				
+			return patternObstacles;
+		});
+
+
+
+		patternList.Add(delegate (ObstacleGenerator OG, List<ObstacleColor> randomColorList) {
+			List<GameObject> patternObstacles = new List<GameObject> ();
+
+			patternObstacles.Add (OG.generateHalfWall (0f, 0.4f, 2f, 35f, ObstacleColor.White, 35));
+
+			for (int i = 0; i < 10; i++) {
+				patternObstacles.Add (OG.generateRopeLaser (0f, 0.1f * i, 0f, randomColorList [0]));
+				patternObstacles.Add (OG.generateRopeLaser (0f, 0.1f * i, 90f, randomColorList [0]));
+			}
+
 			return patternObstacles;
 		});
 	}
