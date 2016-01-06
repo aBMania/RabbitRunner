@@ -15,10 +15,17 @@ public class ObstacleController : MonoBehaviour
 	}
 
     void OnTriggerEnter(Collider other) {
-        if (other.gameObject == player) {
+		if (other.gameObject == player && !playerController.isInCollision()) {
+			playerController.setInCollision(true);
             onPlayerHit();
         }
     }
+
+	void OnTriggerExit(Collider other) {
+		if (playerController.isInCollision()) {
+			playerController.setInCollision(false);
+		}
+	}
 			
     void onPlayerHit()
 	{

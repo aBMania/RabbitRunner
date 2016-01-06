@@ -24,7 +24,7 @@ public class PatternGenerator : MonoBehaviour {
                 OG.generateHorizontalLaser (zMin, ObstacleColor.Red),
                 OG.generateRopeLaser(0, 0.4f, 90, ObstacleColor.Green),
                 OG.generateRopeLaser(0, 0.4f, -90, ObstacleColor.Green),
-                OG.generateHalfWall(0, 1, 0, ObstacleColor.White)
+                OG.generateHalfWall(0, 0.35f, 0, ObstacleColor.White)
             };
 
             foreach (GameObject obstacle in patternObstacles) {
@@ -38,7 +38,7 @@ public class PatternGenerator : MonoBehaviour {
 			GameObject pattern = new GameObject();
 
 			List<GameObject> patternObstacles = new List<GameObject> {
-				OG.generateHalfWall(zMin + patternLength/4, 0.5f, 35f, ObstacleColor.White),
+				OG.generateHalfWall(zMin + patternLength/4, 0.25f, 35f, ObstacleColor.White),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.1f, 15f, ObstacleColor.Blue),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.2f, 15f, ObstacleColor.Blue),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.3f, 15f, ObstacleColor.Blue),
@@ -51,6 +51,21 @@ public class PatternGenerator : MonoBehaviour {
 			}
 
 			return pattern;			
+		});
+
+		patternList.Add(delegate (ObstacleGenerator OG) {
+			GameObject pattern = new GameObject();
+
+			List<GameObject> patternObstacles = new List<GameObject>();
+			for (int i = 1 ; i < 20 ; i++) {
+				patternObstacles.Add(OG.generateRopeLaser(zMin + i*patternLength/20, 1f, 10f*i, ObstacleColor.Green));
+			}
+
+			foreach (GameObject obstacle in patternObstacles) {
+				obstacle.transform.SetParent(pattern.transform);
+			}
+
+			return pattern;
 		});
 	}
 
