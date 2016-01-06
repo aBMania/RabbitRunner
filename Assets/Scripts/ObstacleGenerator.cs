@@ -13,7 +13,9 @@ public class ObstacleGenerator : MonoBehaviour {
 	{
 		GameObject laserInstance;
 
-		laserInstance = Instantiate(laser, new Vector3(0, 0, point1.z), quaternion) as GameObject;
+        Vector3 center = (point2 + point1)/2;
+
+        laserInstance = Instantiate(laser, center, quaternion) as GameObject;
 
 		LaserObstacle obstacleController = laserInstance.GetComponent<LaserObstacle> ();
 
@@ -29,17 +31,22 @@ public class ObstacleGenerator : MonoBehaviour {
 
 	public GameObject generateVerticalLaser(float z, ObstacleColor color)
 	{
-		Vector3 bottomPoint = new Vector3 (0, -cylinderRadius, z);
-		Vector3 topPoint = new Vector3 (0, +cylinderRadius, z);
-
-		return generateLaser (bottomPoint, topPoint, Quaternion.identity, color);
-	}
+        return generateRopeLaser(z, cylinderRadius, 90, color);
+    }
 
 	public GameObject generateHorizontalLaser(float z, ObstacleColor color)
 	{
-		Vector3 leftPoint = new Vector3 (-cylinderRadius, 0, z);
-		Vector3 rightPoint = new Vector3 (+cylinderRadius, 0, z);
-
-		return generateLaser (leftPoint, rightPoint, Quaternion.AngleAxis(90, Vector3.forward), color);
+		return generateRopeLaser (z, cylinderRadius, 0, color);
 	}
+
+    public GameObject generateRopeLaser(float z, float distanceToWall, float angle, ObstacleColor color)
+    {        
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        Vector3 leftPoint = rotation * new Vector3(-cylinderRadius, distanceToWall - cylinderRadius, z);
+        Vector3 rightPoint = rotation * new Vector3(+cylinderRadius, distanceToWall - cylinderRadius, z);
+
+
+        return generateLaser(leftPoint, rightPoint, rotation, color);
+    }
 }

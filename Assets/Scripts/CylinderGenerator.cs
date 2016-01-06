@@ -16,7 +16,8 @@ public class CylinderGenerator : MonoBehaviour {
 		List<GameObject> cylinderObstacles = new List<GameObject> {
 			OG.generateVerticalLaser (position.z + cylinderLength/2, ObstacleColor.Blue),
 			OG.generateHorizontalLaser (position.z + cylinderLength/2, ObstacleColor.Red),
-		};
+            OG.generateRopeLaser (position.z + cylinderLength/2, 1, 45, ObstacleColor.Red),
+        };
 
 		foreach(GameObject obstacle in cylinderObstacles)
 		{
