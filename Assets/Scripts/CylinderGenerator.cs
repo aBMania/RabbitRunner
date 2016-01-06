@@ -20,6 +20,9 @@ public class CylinderGenerator : MonoBehaviour {
     public GameObject newCylinder(Vector3 position, Quaternion rotation, bool firstCylinder = false)
     {
 		GameObject newCylinder = Instantiate(cylinder, position, rotation) as GameObject;
+		ObstacleGenerator OG = GetComponent<ObstacleGenerator> ();
+
+        int n = firstCylinder ? nPatternInFirst : nPattern;
 
         Debug.Log(n);
 
