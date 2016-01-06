@@ -11,18 +11,16 @@ public class PlayerController : MonoBehaviour {
 	float direction;
 	float smoothing;
 	bool dead = false;
+	bool stopped;
 	ObstacleColor color = ObstacleColor.White;
 
     // Use this for initialization
     void Start() {
-		angularSpeed = 500f;
-		speed = 20f;
-		timeElapsed = 0f;
-		smoothing = 2.5f;
+		startRunning();
 	}
 
 	void Update() {
-		if (!dead) {
+		if (!dead && !stopped) {
 			direction = Input.GetAxis ("Horizontal");
 			timeElapsed += Time.deltaTime;
 			speed += Time.deltaTime * smoothing;
@@ -30,6 +28,24 @@ public class PlayerController : MonoBehaviour {
 			turn (direction);
 			moveForward ();
 		}
+	}
+
+	public void startRunning() {
+		angularSpeed = 500f;
+		speed = 20f;
+		timeElapsed = 0f;
+		smoothing = 2.5f;
+		stopped = false;
+	}
+
+	public void stopRunning() {
+		angularSpeed = 0f;
+		speed = 0f;
+		stopped = true;
+	}
+
+	public bool isStopped() {
+		return stopped;
 	}
 
     void turn(float direction) {
@@ -51,7 +67,6 @@ public class PlayerController : MonoBehaviour {
 		return distance;
 	}
 
-
 	public ObstacleColor getColor()
     {
         return color;
@@ -70,7 +85,6 @@ public class PlayerController : MonoBehaviour {
 
 	public void death() {
 		dead = true;
-		Debug.Log ("Le joueur meurt " + dead);
 	}
 
 	public bool isDead() {
