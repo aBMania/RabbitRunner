@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	float timeElapsed;
 	float direction;
 	float smoothing;
+	bool dead = false;
 	ObstacleColor color = ObstacleColor.White;
 
     // Use this for initialization
@@ -65,4 +66,12 @@ public class PlayerController : MonoBehaviour {
 		renderer.material.color = color;
     }
 
+	public void death() {
+		dead = true;
+		Debug.Log ("Le joueur meurt " + dead);
+	}
+
+	public bool isDead() {
+		return dead;
+	}
 }

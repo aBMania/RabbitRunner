@@ -25,7 +25,7 @@ public class Obstacle : MonoBehaviour
 		ObstacleColor playerColor = playerController.getColor ();
 
 		if (playerColor == color || color == ObstacleColor.White) {
-			Debug.Log ("Le joueur meurt");
+			playerController.death ();
 			return;
 		}
 
