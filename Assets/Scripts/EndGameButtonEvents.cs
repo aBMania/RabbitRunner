@@ -5,6 +5,6 @@ using System.Collections;
 public class EndGameButtonEvents : MonoBehaviour {
 
 	public void restartGame() {
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }
