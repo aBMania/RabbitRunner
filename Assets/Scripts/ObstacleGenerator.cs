@@ -43,16 +43,21 @@ public class ObstacleGenerator : MonoBehaviour {
     {        
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        Vector3 leftPoint = rotation * new Vector3(-cylinderRadius, (1-distanceToWall) * cylinderRadius, z);
+        Vector3 leftPoint = rotation * new Vector3(-cylinderRadius, (1 - distanceToWall) * cylinderRadius, z);
         Vector3 rightPoint = rotation * new Vector3(+cylinderRadius, (1 - distanceToWall) * cylinderRadius, z);
 
 
         return generateLaser(leftPoint, rightPoint, rotation, color);
     }
 
-    public GameObject generateHalfWall (float z, float height, float angle, ObstacleColor color)
+    public GameObject generateHalfWall (float z, float distanceToWall, float height, float angle, ObstacleColor color)
     {
-        GameObject halfWallInstance = Instantiate(halfWall, z * Vector3.forward, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject;
+        GameObject halfWallInstance = Instantiate(halfWall, z * Vector3.forward, Quaternion.identity) as GameObject;
+
+        halfWallInstance.transform.localScale = new Vector3(halfWallInstance.transform.localScale.x, halfWallInstance.transform.localScale.y * height, halfWallInstance.transform.localScale.z);
+        halfWallInstance.transform.Translate(Vector3.down * (1.5f - distanceToWall) * cylinderRadius);
+        halfWallInstance.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
+        
 
         SolidObstacleController obstacleController = halfWallInstance.GetComponent<SolidObstacleController>();
 
