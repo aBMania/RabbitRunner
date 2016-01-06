@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Obstacle : MonoBehaviour
+public class ObstacleController : MonoBehaviour
 {
     public GameObject player;
 	public ObstacleColor color;

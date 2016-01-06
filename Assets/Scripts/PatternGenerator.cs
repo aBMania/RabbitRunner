@@ -21,14 +21,13 @@ public class PatternGenerator : MonoBehaviour {
         List<GameObject> cylinderObstacles = new List<GameObject> {
             OG.generateVerticalLaser (z0, ObstacleColor.Blue),
             OG.generateHorizontalLaser (z0, ObstacleColor.Red),
-
-            OG.generateRopeLaser(0, cylinderRadius, Random.Range(1, 180), ObstacleColor.Green)
+            OG.generateRopeLaser(0, cylinderRadius, Random.Range(1, 180), ObstacleColor.Green),
+            OG.generateHalfWall(0, 1, 0, ObstacleColor.White)
         };
 
         foreach (GameObject obstacle in cylinderObstacles)
         {
-
-            obstacle.transform.parent = pattern.transform;
+            obstacle.transform.SetParent(pattern.transform);
         }
 
         return pattern;

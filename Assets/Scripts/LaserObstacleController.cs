@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent (typeof (LineRenderer))]
-public class LaserObstacle : Obstacle {
+public class LaserObstacleController : ObstacleController {
 
 	LineRenderer lineRenderer;	
 

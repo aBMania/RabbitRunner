@@ -17,7 +17,7 @@ public class ObstacleGenerator : MonoBehaviour {
 
         laserInstance = Instantiate(laser, center, quaternion) as GameObject;
 
-		LaserObstacle obstacleController = laserInstance.GetComponent<LaserObstacle> ();
+        LaserObstacleController obstacleController = laserInstance.GetComponent<LaserObstacleController> ();
 
 		obstacleController.player = player;
 		obstacleController.setColor (color);
@@ -48,5 +48,17 @@ public class ObstacleGenerator : MonoBehaviour {
 
 
         return generateLaser(leftPoint, rightPoint, rotation, color);
+    }
+
+    public GameObject generateHalfWall (float z, float height, float angle, ObstacleColor color)
+    {
+        GameObject halfWallInstance = Instantiate(halfWall, z * Vector3.forward, Quaternion.AngleAxis(angle, Vector3.forward)) as GameObject;
+
+        SolidObstacleController obstacleController = halfWallInstance.GetComponent<SolidObstacleController>();
+
+        obstacleController.player = player;
+        obstacleController.setColor(color);
+
+        return halfWallInstance;
     }
 }

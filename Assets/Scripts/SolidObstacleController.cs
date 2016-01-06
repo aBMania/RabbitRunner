@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent (typeof (MeshRenderer))]
-public class SolidObstacle : Obstacle {
+public class SolidObstacleController : ObstacleController {
 
 	MeshRenderer meshRenderer;
 
