@@ -12,6 +12,8 @@ public class PatternGenerator : MonoBehaviour {
 
     static List<Pattern> patternList;
 
+    static int lastPatternIndex;
+
     static PatternGenerator()
     {
         patternList = new List<Pattern>();
@@ -93,8 +95,16 @@ public class PatternGenerator : MonoBehaviour {
 
 	public GameObject newPattern(int difficulty)
     {
-        int r = Random.Range(0, patternList.Count);
-        return patternList[r](obstacleGenerator);
+        int r;
+
+        do
+            r = Random.Range(0, patternList.Count);
+        while (r == lastPatternIndex);
+            
+        lastPatternIndex = r;
+        GameObject pattern = patternList[r](obstacleGenerator);
+        pattern.transform.Rotate(Vector3.forward, Random.Range(-179, 180));
+        return pattern;
     }
 
     public float getPatternLength()
