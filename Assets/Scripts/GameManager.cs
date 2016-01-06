@@ -29,13 +29,13 @@ public class GameManager : MonoBehaviour {
 			buttonClone.transform.SetParent(hudCanvas.transform);
 		}
 
-		// simulates click on button from joystick or on space key down
-		if ((Input.GetKeyDown("joystick 1 button 0") || Input.GetKeyDown("space")) && buttonClone != null) {
+		// simulates click on button from joystick or on return key down
+		if ((Input.GetKeyDown("joystick 1 button 0") || Input.GetKeyDown(KeyCode.Return)) && buttonClone != null) {
 			buttonClone.onClick.Invoke();
 		}
 
-		// if the player isn't dead and if we pressed either space or button 0 from joystick
-		if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick 1 button 0")) && !playerController.isDead()) {
+		// if the player isn't dead and if we pressed either return or button 0 from joystick
+		if ((Input.GetKeyDown("joystick 1 button 0") || Input.GetKeyDown(KeyCode.Return)) && !playerController.isDead()) {
 			if (pause) {
 				pause = false;
 				Destroy(tempPauseText.gameObject);
