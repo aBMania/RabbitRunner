@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PatternGenerator : MonoBehaviour {
 
     ObstacleGenerator obstacleGenerator;
+    static float cylinderRadius = 5f;
     static float patternLength = 100f;
 
     static float zMin = -patternLength/2;
@@ -32,7 +33,7 @@ public class PatternGenerator : MonoBehaviour {
 
 		patternList.Add(delegate (ObstacleGenerator OG, List<ObstacleColor> randomColorList) {
 			List<GameObject> patternObstacles = new List<GameObject> {
-				OG.generateCircleWall(zMin + patternLength/4, 1f, 1f, 35f, ObstacleColor.White),
+				OG.generateHalfWall(zMin + patternLength/4, 0.5f, 0.25f, 35f, ObstacleColor.White),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.1f, 15f, randomColorList[0]),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.2f, 15f, randomColorList[0]),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.3f, 15f, randomColorList[0]),
