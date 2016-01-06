@@ -29,6 +29,7 @@ public class Obstacle : MonoBehaviour
 			return;
 		}
 
+        playerController.setObstacleColor(color);
 		playerController.setColor (getRealColor(color));
 	}
 

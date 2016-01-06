@@ -54,6 +54,11 @@ public class PlayerController : MonoBehaviour {
         return color;
     }
 
+    public void setObstacleColor(ObstacleColor color)
+    {
+        this.color = color;
+    }
+
 	public void setColor(Color color)
     {
         MeshRenderer renderer = GetComponent<MeshRenderer>();
