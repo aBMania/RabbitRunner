@@ -7,7 +7,7 @@ public class CylinderManager : MonoBehaviour {
     public CylinderGenerator CG;
 
     int cylinderLength = 400;
-	int shift = 20;
+	int shift = 100;
 	Transform currentCylinder;
 	Transform frontCylinder;
     
