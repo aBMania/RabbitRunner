@@ -38,7 +38,7 @@ public class PatternGenerator : MonoBehaviour {
 			GameObject pattern = new GameObject();
 
 			List<GameObject> patternObstacles = new List<GameObject> {
-				OG.generateHalfWall(zMin + patternLength/4, 0.25f, 35f, ObstacleColor.White),
+				OG.generateHalfWall(zMin + patternLength/4, 0, 0.25f, 35f, ObstacleColor.White),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.1f, 15f, ObstacleColor.Blue),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.2f, 15f, ObstacleColor.Blue),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.3f, 15f, ObstacleColor.Blue),

@@ -22,6 +22,7 @@ public class ObstacleController : MonoBehaviour
 	}
 
 	public void setAngularSpeed(float angSpeed) {
+        Debug.Log(angularSpeed);
 		angularSpeed = angSpeed;
 	}
 

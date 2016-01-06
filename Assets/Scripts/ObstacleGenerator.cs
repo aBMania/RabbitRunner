@@ -9,7 +9,7 @@ public class ObstacleGenerator : MonoBehaviour {
 
 	float cylinderRadius = 5f;
 
-	public GameObject generateLaser(Vector3 point1, Vector3 point2, Quaternion quaternion, ObstacleColor color)
+	public GameObject generateLaser(Vector3 point1, Vector3 point2, Quaternion quaternion, ObstacleColor color, float angularSpeed = 0)
 	{
 		GameObject laserInstance;
 
@@ -21,25 +21,26 @@ public class ObstacleGenerator : MonoBehaviour {
 
 		obstacleController.player = player;
 		obstacleController.setColor (color);
+        obstacleController.setAngularSpeed(angularSpeed);
 
-		LineRenderer renderer = laserInstance.GetComponent<LineRenderer> ();
+        LineRenderer renderer = laserInstance.GetComponent<LineRenderer> ();
 		renderer.SetPosition(0, new Vector3(-1, 0, 0));
 		renderer.SetPosition(1, new Vector3(1, 0, 0));
 
 		return laserInstance;
 	}
 
-	public GameObject generateVerticalLaser(float z, ObstacleColor color)
+	public GameObject generateVerticalLaser(float z, ObstacleColor color, float angularSpeed = 0)
 	{
-        return generateRopeLaser(z, 1, 90, color);
+        return generateRopeLaser(z, 1, 90, color, angularSpeed);
     }
 
-	public GameObject generateHorizontalLaser(float z, ObstacleColor color)
+	public GameObject generateHorizontalLaser(float z, ObstacleColor color, float angularSpeed = 0)
 	{
-		return generateRopeLaser (z, 1, 0, color);
+		return generateRopeLaser (z, 1, 0, color, angularSpeed);
 	}
 
-    public GameObject generateRopeLaser(float z, float distanceToWall, float angle, ObstacleColor color)
+    public GameObject generateRopeLaser(float z, float distanceToWall, float angle, ObstacleColor color, float angularSpeed = 0)
     {        
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
@@ -47,10 +48,10 @@ public class ObstacleGenerator : MonoBehaviour {
         Vector3 rightPoint = rotation * new Vector3(+cylinderRadius, (1 - distanceToWall) * cylinderRadius, z);
 
 
-        return generateLaser(leftPoint, rightPoint, rotation, color);
+        return generateLaser(leftPoint, rightPoint, rotation, color, angularSpeed);
     }
 
-    public GameObject generateHalfWall (float z, float distanceToWall, float height, float angle, ObstacleColor color)
+    public GameObject generateHalfWall (float z, float distanceToWall, float height, float angle, ObstacleColor color, float angularSpeed = 0)
     {
         GameObject halfWallInstance = Instantiate(halfWall, z * Vector3.forward, Quaternion.identity) as GameObject;
 
@@ -63,6 +64,7 @@ public class ObstacleGenerator : MonoBehaviour {
 
         obstacleController.player = player;
         obstacleController.setColor(color);
+        obstacleController.setAngularSpeed(angularSpeed);
 
         return halfWallInstance;
     }
