@@ -22,7 +22,6 @@ public class ObstacleController : MonoBehaviour
 	}
 
 	public void setAngularSpeed(float angSpeed) {
-        Debug.Log(angularSpeed);
 		angularSpeed = angSpeed;
 	}
 
@@ -74,7 +73,7 @@ public class ObstacleController : MonoBehaviour
 		switch(color)
 		{
 		case ObstacleColor.Blue:
-			realColor = Color.blue;
+			realColor = Color.cyan;
 			break;
 		case ObstacleColor.Green:
 			realColor = Color.green;
