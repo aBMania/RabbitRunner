@@ -38,7 +38,7 @@ public class PatternGenerator : MonoBehaviour {
 			GameObject pattern = new GameObject();
 
 			List<GameObject> patternObstacles = new List<GameObject> {
-				OG.generateHalfWall(zMin + patternLength/4, 0, 0.25f, 35f, ObstacleColor.White),
+				OG.generateHalfWall(zMin + patternLength/4, 0.5f, 0.25f, 35f, ObstacleColor.White),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.1f, 15f, ObstacleColor.Blue),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.2f, 15f, ObstacleColor.Blue),
 				OG.generateRopeLaser(zMin + patternLength/4 + 10, 0.3f, 15f, ObstacleColor.Blue),
@@ -57,7 +57,7 @@ public class PatternGenerator : MonoBehaviour {
 			GameObject pattern = new GameObject();
 			List<GameObject> patternObstacles = new List<GameObject>();
 
-			for (int i = 1 ; i < 20 ; i++) {
+			for (int i = 0 ; i < 20 ; i++) {
 				patternObstacles.Add(OG.generateRopeLaser(zMin + i*patternLength/20, 1f, 10f*i, ObstacleColor.Green));
 			}
 
@@ -75,7 +75,7 @@ public class PatternGenerator : MonoBehaviour {
 
 			for (int i = 0; i < 3; i++) {
 				// add rotation
-				patternObstacles.Add (OG.generateRopeLaser (zMin + i * patternLength / 3, 1f, 60f * i, ObstacleColor.Red));
+				patternObstacles.Add (OG.generateRopeLaser(zMin + i * patternLength / 3, 1f, 60f * i, ObstacleColor.Red, 30));
 			}
 
 			foreach (GameObject obstacle in patternObstacles) {
