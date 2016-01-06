@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 	float smoothing;
 	float tempSpeed = 20f;
 	bool dead = false;
+	bool inCollision = false;
 	bool stopped;
 	ObstacleColor color = ObstacleColor.White;
 
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 		angularSpeed = 500f;
 		speed = tempSpeed;
 		timeElapsed = 0f;
-		smoothing = 2.5f;
+		smoothing = 1.5f;
 		stopped = false;
 	}
 
@@ -91,5 +92,13 @@ public class PlayerController : MonoBehaviour {
 
 	public bool isDead() {
 		return dead;
+	}
+
+	public bool isInCollision() {
+		return inCollision;
+	}
+
+	public void setInCollision(bool coll) {
+		inCollision = coll;
 	}
 }
