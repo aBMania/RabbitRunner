@@ -37,6 +37,9 @@ public class ObstacleController : MonoBehaviour
     }
 
 	void OnTriggerExit(Collider other) {
+		if (!playerController)
+			return;
+		
 		if (playerController.isInCollision()) {
 			playerController.setInCollision(false);
 		}

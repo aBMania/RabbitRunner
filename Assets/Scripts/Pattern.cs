@@ -1,3 +1,4 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-delegate GameObject Pattern(ObstacleGenerator OG);
+delegate List<GameObject> Pattern(ObstacleGenerator OG, List<ObstacleColor> randomColorList);

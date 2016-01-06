@@ -5,6 +5,7 @@ public class ObstacleGenerator : MonoBehaviour {
 
 	public GameObject laser;
 	public GameObject halfWall;
+	public GameObject circleWall;
 	public GameObject player;
 
 	float cylinderRadius = 5f;
@@ -53,10 +54,10 @@ public class ObstacleGenerator : MonoBehaviour {
 
     public GameObject generateHalfWall (float z, float distanceToWall, float height, float angle, ObstacleColor color, float angularSpeed = 0)
     {
-        GameObject halfWallInstance = Instantiate(halfWall, z * Vector3.forward, Quaternion.identity) as GameObject;
+        GameObject halfWallInstance = Instantiate(halfWall) as GameObject;
 
         halfWallInstance.transform.localScale = new Vector3(halfWallInstance.transform.localScale.x, halfWallInstance.transform.localScale.y * height, halfWallInstance.transform.localScale.z);
-        halfWallInstance.transform.Translate(Vector3.down * (1.5f - distanceToWall) * cylinderRadius);
+        halfWallInstance.transform.Translate(Vector3.down * (1f - distanceToWall) * cylinderRadius);
         halfWallInstance.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
         
 
@@ -68,4 +69,21 @@ public class ObstacleGenerator : MonoBehaviour {
 
         return halfWallInstance;
     }
+
+	public GameObject generateCircleWall (float z, float distanceToWall, float radius, float angle, ObstacleColor color, float angularSpeed = 0)
+	{
+		GameObject circleWallInstance = Instantiate(circleWall) as GameObject;
+
+		circleWallInstance.transform.localScale = new Vector3(circleWallInstance.transform.localScale.x * radius, circleWallInstance.transform.localScale.y, circleWallInstance.transform.localScale.z * radius);
+		circleWallInstance.transform.Translate(Vector3.down * (1.5f - distanceToWall) * cylinderRadius);
+		circleWallInstance.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
+
+		SolidObstacleController obstacleController = circleWallInstance.GetComponent<SolidObstacleController>();
+
+		obstacleController.player = player;
+		obstacleController.setColor(color);
+		obstacleController.setAngularSpeed(angularSpeed);
+
+		return circleWallInstance;
+	}
 }
