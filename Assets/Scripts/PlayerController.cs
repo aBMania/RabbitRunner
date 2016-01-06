@@ -22,12 +22,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		direction = Input.GetAxis("Horizontal");
-		timeElapsed += Time.deltaTime;
-		speed += Time.deltaTime * smoothing;
+		if (!dead) {
+			direction = Input.GetAxis ("Horizontal");
+			timeElapsed += Time.deltaTime;
+			speed += Time.deltaTime * smoothing;
 
-		turn(direction);
-		moveForward();
+			turn (direction);
+			moveForward ();
+		}
 	}
 
     void turn(float direction) {
