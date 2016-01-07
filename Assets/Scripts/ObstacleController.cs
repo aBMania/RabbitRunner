@@ -59,7 +59,7 @@ public class ObstacleController : MonoBehaviour
 			return;
 		}
 
-        emitParticles();
+        emitParticles(getRealColor(color));
         playerController.setObstacleColor(color);
 		playerController.setColor (getRealColor(color));
 	}
@@ -99,27 +99,14 @@ public class ObstacleController : MonoBehaviour
 		return realColor;
 	}
 
-    public void emitParticles()
+    public void emitParticles(Color color)
     {
-        /*
-        Transform child;
-        int i = 0;
+        GameObject laserSparksInstance = Instantiate(laserSparks) as GameObject;
 
-        do
-        {
-            child = player.transform.GetChild(i);
-            i++;
-        }
-        while (child && child.name != "LaserSparks");
+        laserSparksInstance.transform.parent = transform;
+        laserSparksInstance.transform.position = player.transform.position;
 
-        if (!child)
-            return;
-
-
-
-        ParticleSystem particleSystem = child.gameObject.GetComponent<ParticleSystem>();
-        particleSystem.Play();
-        */
-
+        ParticleSystem particleSystem = laserSparksInstance.GetComponent<ParticleSystem>();
+        particleSystem.startColor = color;
     }
 }
