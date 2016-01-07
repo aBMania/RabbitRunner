@@ -46,7 +46,6 @@ public class CylinderManager : MonoBehaviour {
 					textMesh.text = "1st";
 					break;
 			}
-			Debug.Log (textMesh.text.ToString() + " " + offsets[i]);
 		}
 	}
 	
