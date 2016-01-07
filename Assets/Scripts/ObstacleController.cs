@@ -31,7 +31,6 @@ public class ObstacleController : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
 		if (other.gameObject == player && !playerController.isInCollision()) {
-			playerController.setInCollision(true);
             onPlayerHit();
         }
     }
@@ -47,9 +46,10 @@ public class ObstacleController : MonoBehaviour
 			
     void onPlayerHit()
 	{
+		playerController.setInCollision(true);
 		ObstacleColor playerColor = playerController.getColor ();
 
-		if (playerColor == color || color == ObstacleColor.White) {
+		if (playerColor == color || color == ObstacleColor.White && !playerController.isDead()) {
 			playerController.death ();
 			return;
 		}

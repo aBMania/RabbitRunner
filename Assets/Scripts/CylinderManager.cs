@@ -9,18 +9,28 @@ public class CylinderManager : MonoBehaviour {
 
     int cylinderLength = 400;
 	int shift = 100;
-	int textMeshOffset = 25;
+	int textMeshOffset = 40;
 	Transform currentCylinder;
 	Transform frontCylinder;
 	TextMesh first, second, third, fourth, fifth;
-	float firstZ = ScoreList.getList()[0],
-		secondZ = ScoreList.getList()[1],
-		thirdZ = ScoreList.getList()[2],
-		fourthZ = ScoreList.getList()[3],
-		fifthZ = ScoreList.getList()[4];
+	float firstZ = 0f, secondZ = 0f, thirdZ = 0f, fourthZ = 0f, fifthZ = 0f;
 
 	// Use this for initialization
 	void Start () {
+		if (ScoreList.getList().Count >= 1)
+			firstZ = ScoreList.getList()[0];
+
+		if (ScoreList.getList().Count >= 2)
+			secondZ = ScoreList.getList()[1];
+
+		if (ScoreList.getList().Count >= 3)
+			thirdZ = ScoreList.getList()[2];
+
+		if (ScoreList.getList().Count >= 4)
+			fourthZ = ScoreList.getList()[3];
+		
+		if (ScoreList.getList().Count >= 5)
+			fifthZ = ScoreList.getList()[4];
 
 		if (secondZ - firstZ < textMeshOffset) {
 			secondZ = firstZ + textMeshOffset;
