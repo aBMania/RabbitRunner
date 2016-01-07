@@ -7,7 +7,6 @@ public class ObstacleGenerator : MonoBehaviour {
 	public GameObject halfWall;
 	public GameObject circleWall;
 	public GameObject cylindarWall;
-    public GameObject laserSparks;
     public GameObject player;
 
 	float cylinderRadius = 5f;
@@ -25,7 +24,6 @@ public class ObstacleGenerator : MonoBehaviour {
 		obstacleController.player = player;
 		obstacleController.setColor (color);
         obstacleController.setAngularSpeed(angularSpeed);
-        obstacleController.laserSparks = laserSparks;
 
         LineRenderer renderer = laserInstance.GetComponent<LineRenderer> ();
 		renderer.SetPosition(0, new Vector3(-1, 0, 0));
@@ -70,7 +68,6 @@ public class ObstacleGenerator : MonoBehaviour {
         obstacleController.player = player;
         obstacleController.setColor(color);
         obstacleController.setAngularSpeed(angularSpeed);
-        obstacleController.laserSparks = laserSparks;
 
         return halfWallInstance;
     }
@@ -89,7 +86,6 @@ public class ObstacleGenerator : MonoBehaviour {
 		obstacleController.player = player;
 		obstacleController.setColor(color);
 		obstacleController.setAngularSpeed(angularSpeed);
-        obstacleController.laserSparks = laserSparks;
 
         return circleWallInstance;
 	}
@@ -104,7 +100,6 @@ public class ObstacleGenerator : MonoBehaviour {
 
 		obstacleController.player = player;
 		obstacleController.setColor(color);
-        obstacleController.laserSparks = laserSparks;
 
         return cylinderWallInstance;
 	}
