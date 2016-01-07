@@ -5,6 +5,7 @@ using System;
 public class PlayerController : MonoBehaviour {
 
 	public GameObject canvas;
+    public GameObject fireWork;
 
 	float speed;
 	float distance;
@@ -96,8 +97,15 @@ public class PlayerController : MonoBehaviour {
 	public void death() {
         ScoreList.add(distance);
 
+        if (ScoreList.getList()[0] == distance)
+            onNewHighScore();
 		dead = true;
 	}
+
+    public void onNewHighScore()
+    {
+        emitFireWork();
+    }
 
 	public bool isDead() {
 		return dead;
@@ -114,4 +122,12 @@ public class PlayerController : MonoBehaviour {
 	public HUDManager getHUDManager() {
 		return hudManager;
 	}
+
+
+    public void emitFireWork()
+    {
+        GameObject fireWorkInstance = Instantiate(fireWork);
+        fireWorkInstance.transform.parent = transform;
+        fireWorkInstance.transform.position = (transform.position.z + 10) * Vector3.forward;
+    }
 }
