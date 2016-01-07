@@ -91,6 +91,12 @@ public class PlayerController : MonoBehaviour {
     {
         MeshRenderer renderer = GetComponent<MeshRenderer>();
 		renderer.material.color = color;
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.GetComponent<LightController>().setColor(color);
+        }
+
     }
 
 	public void death() {
