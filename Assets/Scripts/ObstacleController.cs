@@ -101,6 +101,7 @@ public class ObstacleController : MonoBehaviour
 
     public void emitParticles()
     {
+        /*
         Transform child;
         int i = 0;
 
@@ -118,6 +119,7 @@ public class ObstacleController : MonoBehaviour
 
         ParticleSystem particleSystem = child.gameObject.GetComponent<ParticleSystem>();
         particleSystem.Play();
+        */
 
     }
 }
