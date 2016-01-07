@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour {
 	public GameObject player;
 	public GameObject hudCanvas;
 	public Text pauseTextPrefab, highscoresTextPrefab;
-    public AudioSource musicPause;
 
 
 	bool created = false;
@@ -22,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	void Awake () {
 		playerController = player.GetComponent<PlayerController>();
         music = player.GetComponent<AudioSource>();
-	}
+    }
 	
 	// Update is called once per frame
 	void LateUpdate () {
@@ -56,7 +55,6 @@ public class GameManager : MonoBehaviour {
 				}
 				playerController.startRunning();
                 music.Play();
-                musicPause.Pause();
 
             }
             else {
@@ -64,7 +62,6 @@ public class GameManager : MonoBehaviour {
 				tempPauseText = instantiatePauseText();
 				playerController.stopRunning();
                 music.Pause();
-                musicPause.Play();
 			}
 		}
 	}
