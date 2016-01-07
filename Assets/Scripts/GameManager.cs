@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour {
 
 	bool created = false;
 	bool pause = true;
-	bool tutorial = true;
 	PlayerController playerController;
 	Button buttonClone = null;
 	Text tempPauseText = null, scores = null;
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour {
 			string scoresText = "Highscores:\n\n";
 			int count = (ScoreList.getList().Count > 5 ? 5 : ScoreList.getList().Count);
 			for (int i = 0; i < count; i++) {
-				scoresText += ((Mathf.Round(ScoreList.getList()[i].getDistance())*10f)/10f).ToString() + " m\n";
+				scoresText += ((Mathf.Round(ScoreList.getList()[i])*10f)/10f).ToString() + " m\n";
 			}
 			scores.text = scoresText;
 			scores.transform.SetParent(hudCanvas.transform);
