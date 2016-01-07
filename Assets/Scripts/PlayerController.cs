@@ -94,8 +94,7 @@ public class PlayerController : MonoBehaviour {
     }
 
 	public void death() {
-        Score score = new Score(distance);
-        ScoreList.add(score);
+        ScoreList.add(distance);
 
 		dead = true;
 	}
