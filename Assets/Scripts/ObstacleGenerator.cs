@@ -9,6 +9,10 @@ public class ObstacleGenerator : MonoBehaviour {
 	public GameObject cylindarWall;
     public GameObject player;
 
+	static float patternLength = 100f;
+
+	static float zMin = -patternLength/2;
+
 	float cylinderRadius = 5f;
 
 	public GameObject generateLaser(Vector3 point1, Vector3 point2, Quaternion quaternion, ObstacleColor color, float angularSpeed = 0)
@@ -43,11 +47,12 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
     public GameObject generateRopeLaser(float z, float distanceToWall, float angle, ObstacleColor color, float angularSpeed = 0)
-    {        
+    {   
+		
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        Vector3 leftPoint = rotation * new Vector3(-cylinderRadius, (1 - distanceToWall) * cylinderRadius, z);
-        Vector3 rightPoint = rotation * new Vector3(+cylinderRadius, (1 - distanceToWall) * cylinderRadius, z);
+		Vector3 leftPoint = rotation * new Vector3(-cylinderRadius, (1 - distanceToWall) * cylinderRadius, getPatternZ(z));
+		Vector3 rightPoint = rotation * new Vector3(+cylinderRadius, (1 - distanceToWall) * cylinderRadius, getPatternZ(z));
 
 
         return generateLaser(leftPoint, rightPoint, rotation, color, angularSpeed);
@@ -59,7 +64,7 @@ public class ObstacleGenerator : MonoBehaviour {
 
         halfWallInstance.transform.localScale = new Vector3(halfWallInstance.transform.localScale.x, halfWallInstance.transform.localScale.y * height, halfWallInstance.transform.localScale.z);
 		halfWallInstance.transform.Translate(Vector3.down * (1f - distanceToWall) * cylinderRadius);
-		halfWallInstance.transform.position = new Vector3 (halfWallInstance.transform.position.x, halfWallInstance.transform.position.y, z);
+		halfWallInstance.transform.position = new Vector3 (halfWallInstance.transform.position.x, halfWallInstance.transform.position.y, getPatternZ(z));
         halfWallInstance.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
         
 
@@ -78,7 +83,7 @@ public class ObstacleGenerator : MonoBehaviour {
 
 		circleWallInstance.transform.localScale = new Vector3(circleWallInstance.transform.localScale.x * radius, circleWallInstance.transform.localScale.y, circleWallInstance.transform.localScale.z * radius);
 		circleWallInstance.transform.Translate(Vector3.down * (1.5f - distanceToWall) * cylinderRadius);
-		circleWallInstance.transform.position = new Vector3 (circleWallInstance.transform.position.x, circleWallInstance.transform.position.y, z);
+		circleWallInstance.transform.position = new Vector3 (circleWallInstance.transform.position.x, circleWallInstance.transform.position.y, getPatternZ(z));
 		circleWallInstance.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
 
 		SolidObstacleController obstacleController = circleWallInstance.GetComponent<SolidObstacleController>();
@@ -94,7 +99,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	{
 		GameObject cylinderWallInstance  = Instantiate(cylindarWall) as GameObject;
 
-		cylinderWallInstance.transform.position = new Vector3 (cylinderWallInstance.transform.position.x, cylinderWallInstance.transform.position.y, z);
+		cylinderWallInstance.transform.position = new Vector3 (cylinderWallInstance.transform.position.x, cylinderWallInstance.transform.position.y, getPatternZ(z));
 
 		SolidObstacleController obstacleController = cylinderWallInstance.GetComponent<SolidObstacleController>();
 
@@ -102,5 +107,10 @@ public class ObstacleGenerator : MonoBehaviour {
 		obstacleController.setColor(color);
 
         return cylinderWallInstance;
+	}
+
+	float getPatternZ(float z)
+	{
+		return zMin + patternLength * z;
 	}
 }

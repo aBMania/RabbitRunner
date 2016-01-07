@@ -32,7 +32,7 @@ public class CylinderGenerator : MonoBehaviour {
             zDistance += position.z;
 
             if (firstCylinder)
-                zDistance += (nPattern - nPatternInFirst) * PG.getPatternLength();
+				zDistance += (nPattern - nPatternInFirst) * PG.getPatternLength();
 
             pattern.transform.Translate(zDistance * Vector3.forward);
             pattern.transform.parent = newCylinder.transform;
