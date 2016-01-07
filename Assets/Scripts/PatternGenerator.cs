@@ -21,8 +21,8 @@ public class PatternGenerator : MonoBehaviour {
 		patternList.Add(delegate (ObstacleGenerator OG, List<ObstacleColor> randomColorList) {
 
             List<GameObject> patternObstacles = new List<GameObject> {
-				OG.generateVerticalLaser (zMin,  randomColorList[0]),
-				OG.generateHorizontalLaser (zMin,  randomColorList[1]),
+				OG.generateVerticalLaser (zMin,  randomColorList[0], 35f),
+				OG.generateHorizontalLaser (zMin,  randomColorList[1], -35f),
 				OG.generateRopeLaser(0, 0.4f, 90,  randomColorList[2]),
 				OG.generateRopeLaser(0, 0.4f, -90,  randomColorList[2]),
                 OG.generateHalfWall(0, 0.35f, 0.5f,  0, ObstacleColor.White)
