@@ -4,6 +4,7 @@ using System;
 
 public class ObstacleController : MonoBehaviour
 {
+    public GameObject laserSparks;
     public GameObject player;
 	public ObstacleColor color;
     PlayerController playerController;
@@ -46,14 +47,19 @@ public class ObstacleController : MonoBehaviour
 			
     void onPlayerHit()
 	{
-		playerController.setInCollision(true);
-		ObstacleColor playerColor = playerController.getColor ();
+        if(playerController.isInCollision() || playerController.isDead())
+            return;
 
-		if (playerColor == color || color == ObstacleColor.White && !playerController.isDead()) {
+        playerController.setInCollision(true);
+
+        ObstacleColor playerColor = playerController.getColor ();
+
+		if (playerColor == color || color == ObstacleColor.White) {
 			playerController.death ();
 			return;
 		}
 
+        emitParticles();
         playerController.setObstacleColor(color);
 		playerController.setColor (getRealColor(color));
 	}
@@ -92,4 +98,26 @@ public class ObstacleController : MonoBehaviour
 
 		return realColor;
 	}
+
+    public void emitParticles()
+    {
+        Transform child;
+        int i = 0;
+
+        do
+        {
+            child = player.transform.GetChild(i);
+            i++;
+        }
+        while (child && child.name != "LaserSparks");
+
+        if (!child)
+            return;
+
+
+
+        ParticleSystem particleSystem = child.gameObject.GetComponent<ParticleSystem>();
+        particleSystem.Play();
+
+    }
 }
