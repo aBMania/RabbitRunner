@@ -11,5 +11,10 @@ public class Score
     {
         this.distance = distance;
     }
+
+    public float getDistance()
+    {
+
+    }
 }
 

@@ -15,6 +15,7 @@ public class ScoreList
     public static void add(Score score)
     {
         scoreList.Add(score);
+        scoreList = scoreList.OrderByDescending(s => s.getDistance()).ToList();
     }
 
     public static List<Score> getList()
