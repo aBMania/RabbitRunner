@@ -8,18 +8,20 @@ public class GameManager : MonoBehaviour {
 	public GameObject player;
 	public GameObject hudCanvas;
 	public Text pauseTextPrefab, highscoresTextPrefab;
-	public Image imagePrefab;
+    public AudioSource musicPause;
+
 
 	bool created = false;
 	bool pause = true;
 	PlayerController playerController;
 	Button buttonClone = null;
 	Text tempPauseText = null, scores = null;
-	Image image;
+    AudioSource music;
 
 	// Use this for initialization
 	void Awake () {
 		playerController = player.GetComponent<PlayerController>();
+        music = player.GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -27,9 +29,6 @@ public class GameManager : MonoBehaviour {
 		// if the button hasn't been createed yet and if the player's dead
 		if (playerController.isDead() && !created) {
 			created = true;
-			image = Instantiate(imagePrefab, new Vector3 (Screen.width / 2, Screen.height / 2, 0), Quaternion.identity) as Image;
-			image.color = new Color32(200, 200, 200, 175);
-			image.transform.SetParent(hudCanvas.transform);
 			buttonClone = Instantiate(endButton, new Vector3 (Screen.width/2 - 75, Screen.height/2, 0), Quaternion.identity) as Button;
 			buttonClone.transform.SetParent(hudCanvas.transform);
 			scores = Instantiate(highscoresTextPrefab, new Vector3(Screen.width/2 + 75, Screen.height/2, 0), Quaternion.identity) as Text;
@@ -56,10 +55,16 @@ public class GameManager : MonoBehaviour {
 					Destroy (tempPauseText.gameObject);
 				}
 				playerController.startRunning();
-			} else {
+                music.Play();
+                musicPause.Pause();
+
+            }
+            else {
 				pause = true;
 				tempPauseText = instantiatePauseText();
 				playerController.stopRunning();
+                music.Pause();
+                musicPause.Play();
 			}
 		}
 	}
