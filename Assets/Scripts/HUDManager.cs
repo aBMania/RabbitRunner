@@ -8,10 +8,12 @@ public class HUDManager : MonoBehaviour {
 	public Text distanceTextPrefab;
 	public Text instructionsTextPrefab;
 	public GameObject player;
+	public Image imagePrefab;
 
 	bool tutorial = true;
 	Text instructions, distance, speed;
 	PlayerController playerController;
+	Image image;
 
 	void Awake() {
 		playerController = player.GetComponent<PlayerController>();
@@ -19,6 +21,9 @@ public class HUDManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
+		image = Instantiate (imagePrefab, new Vector3 (Screen.width / 2, Screen.height / 2, 0), Quaternion.identity) as Image;
+		image.color = new Color32 (200, 200, 200, 175);
+		image.transform.SetParent (transform);
 		instructions = Instantiate(instructionsTextPrefab, new Vector3(Screen.width/2, Screen.height/2, 0), Quaternion.identity) as Text;
 		instructions.transform.SetParent(transform);
 	}
@@ -29,6 +34,7 @@ public class HUDManager : MonoBehaviour {
 		if ((Input.GetKeyDown ("joystick button 0") || Input.GetKeyDown (KeyCode.Return)) && tutorial) { 
 			tutorial = false;
 			Destroy(instructions);
+			Destroy(image);
 			displayInformations ();
 		} else if (!tutorial) {
 			speed.text = "Speed: " + Mathf.Round(playerController.getSpeed() * 10f) / 10f + " km/h";
