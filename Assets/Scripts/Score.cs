@@ -14,7 +14,7 @@ public class Score
 
     public float getDistance()
     {
-
+        return distance;
     }
 }
 
