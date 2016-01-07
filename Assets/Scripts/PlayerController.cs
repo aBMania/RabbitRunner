@@ -4,8 +4,8 @@ using System;
 
 public class PlayerController : MonoBehaviour {
 
-	float speed;
-	float distance;
+	static float speed;
+	static float distance;
 	float angularSpeed;
 	float timeElapsed;
 	float direction;
@@ -62,11 +62,11 @@ public class PlayerController : MonoBehaviour {
 		distance = transform.position.z;
 	}
 
-	public float getSpeed() {
+	public static float getSpeed() {
 		return speed;
 	}
 
-	public float getDistance() {
+	public static float getDistance() {
 		return distance;
 	}
 
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour {
         Score score = new Score(distance);
         ScoreList.add(score);
 
-		dead = true;
+        dead = true;
 	}
 
 	public bool isDead() {
