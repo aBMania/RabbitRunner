@@ -168,7 +168,7 @@ public class FadingAudioSource : MonoBehaviour
 
     private void Awake()
     {
-        this.audioSource = this.audio;
+        this.audioSource = this.GetComponent<AudioSource>();
         this.audioSource.volume = 0f;
     }
 

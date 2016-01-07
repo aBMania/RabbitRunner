@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject player;
 	public GameObject hudCanvas;
 	public Text pauseTextPrefab, highscoresTextPrefab;
-
+	public Image imagePrefab;
 
 	bool created = false;
 	bool pause = true;
@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 	Button buttonClone = null;
 	Text tempPauseText = null, scores = null;
     AudioSource music;
+	Image image;
 
 	// Use this for initialization
 	void Awake () {
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour {
 		// if the button hasn't been createed yet and if the player's dead
 		if (playerController.isDead() && !created) {
 			created = true;
+			image = Instantiate (imagePrefab, new Vector3 (Screen.width / 2, Screen.height / 2, 0), Quaternion.identity) as Image;
+			image.color = new Color32 (200, 200, 200, 175);
+			image.transform.SetParent (hudCanvas.transform);
 			buttonClone = Instantiate(endButton, new Vector3 (Screen.width/2 - 75, Screen.height/2, 0), Quaternion.identity) as Button;
 			buttonClone.transform.SetParent(hudCanvas.transform);
 			scores = Instantiate(highscoresTextPrefab, new Vector3(Screen.width/2 + 75, Screen.height/2, 0), Quaternion.identity) as Text;

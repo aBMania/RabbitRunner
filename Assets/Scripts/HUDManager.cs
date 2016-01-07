@@ -9,8 +9,9 @@ public class HUDManager : MonoBehaviour {
 	public Text instructionsTextPrefab;
 	public GameObject player;
 	public Image imagePrefab;
+	public Text highscoreNotificationPrefab;
 
-	bool tutorial = true;
+	bool tutorial = true, highscoreNotificationCreated = false;
 	Text instructions, distance, speed;
 	PlayerController playerController;
 	Image image;
@@ -30,6 +31,15 @@ public class HUDManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
+		if (ScoreList.getList().Count > 0) {
+			if (ScoreList.getList()[0] < playerController.transform.position.z && !highscoreNotificationCreated) {
+				highscoreNotificationCreated = true;
+				instantiateHighscoreNotification();
+			}
+		} else {
+			instantiateHighscoreNotification();
+		}
+
 		// if enter key or button 0 pressed, and in tutorial, launch game 
 		if ((Input.GetKeyDown ("joystick button 0") || Input.GetKeyDown (KeyCode.Return)) && tutorial) { 
 			tutorial = false;
@@ -51,5 +61,11 @@ public class HUDManager : MonoBehaviour {
 
 	public bool inTutorial() {
 		return tutorial;
+	}
+
+	public Text instantiateHighscoreNotification() {
+		Text text = Instantiate(highscoreNotificationPrefab, new Vector3(10, Screen.height - 50, 0), Quaternion.identity) as Text;
+		text.transform.SetParent(transform);
+		return text;
 	}
 }

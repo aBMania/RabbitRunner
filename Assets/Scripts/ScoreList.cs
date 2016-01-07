@@ -9,6 +9,7 @@ public class ScoreList : MonoBehaviour
 
     static ScoreList()
     {
+		PlayerPrefs.DeleteAll ();
         scoreList = new List<float>(PlayerPrefsX.GetFloatArray("scores"));
     }
 

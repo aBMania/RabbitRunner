@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
@@ -110,11 +111,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-    public void onNewHighScore()
-    {
+    public void onNewHighScore() {
         emitFireWork();
     }
-
 
     public bool isDead() {
 		return dead;
