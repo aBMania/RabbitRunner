@@ -17,7 +17,6 @@ public class LightController : MonoBehaviour
 
     public void setColor(Color color)
     {
-        Debug.Log("okok");
         lt.color = color;
     }
 

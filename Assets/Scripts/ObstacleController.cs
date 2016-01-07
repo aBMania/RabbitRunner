@@ -109,5 +109,4 @@ public class ObstacleController : MonoBehaviour
         ParticleSystem particleSystem = laserSparksInstance.GetComponent<ParticleSystem>();
         particleSystem.startColor = color;
     }
-
 }
