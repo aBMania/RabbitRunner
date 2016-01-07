@@ -9,11 +9,12 @@ public class ScoreList : MonoBehaviour
 
     static ScoreList()
     {
+		PlayerPrefs.DeleteAll ();
         scoreList = new List<float>(PlayerPrefsX.GetFloatArray("scores"));
     }
 
     public static void add(float score)
-    {
+    {	
         scoreList.Add(score);
         scoreList = scoreList.OrderByDescending(s => s).ToList();
 
