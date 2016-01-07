@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class CylinderManager : MonoBehaviour {
 
@@ -9,57 +10,44 @@ public class CylinderManager : MonoBehaviour {
 
     int cylinderLength = 400;
 	int shift = 100;
-	int textMeshOffset = 40;
+	int textMeshOffset = 15;
 	Transform currentCylinder;
 	Transform frontCylinder;
 	TextMesh first, second, third, fourth, fifth;
-	float firstZ = 0f, secondZ = 0f, thirdZ = 0f, fourthZ = 0f, fifthZ = 0f;
+	List<float> offsets = new List<float>();
 
 	// Use this for initialization
 	void Start () {
-		if (ScoreList.getList().Count >= 1)
-			firstZ = ScoreList.getList()[0];
-
-		if (ScoreList.getList().Count >= 2)
-			secondZ = ScoreList.getList()[1];
-
-		if (ScoreList.getList().Count >= 3)
-			thirdZ = ScoreList.getList()[2];
-
-		if (ScoreList.getList().Count >= 4)
-			fourthZ = ScoreList.getList()[3];
-		
-		if (ScoreList.getList().Count >= 5)
-			fifthZ = ScoreList.getList()[4];
-
-		if (secondZ - firstZ < textMeshOffset) {
-			secondZ = firstZ + textMeshOffset;
+		int count = (ScoreList.getList().Count >= 5 ? 5 : ScoreList.getList().Count);
+		for (int i = 0; i < count; i++) {
+			offsets.Add(ScoreList.getList()[i]);
 		}
 
-		if (thirdZ - secondZ < textMeshOffset) {
-			thirdZ = secondZ + textMeshOffset;
-		}
-
-		if (fourthZ - thirdZ < textMeshOffset) {
-			fourthZ = thirdZ + textMeshOffset;
-		}
-
-		if (fifthZ - fourthZ < textMeshOffset) {
-			fifthZ = fourthZ + textMeshOffset;
-		}
-
-        currentCylinder = CG.newCylinder(new Vector3(0, 0, 0), Quaternion.identity, true).transform;
+		currentCylinder = CG.newCylinder(new Vector3(0, 0, 0), Quaternion.identity, true).transform;
 		frontCylinder = CG.newCylinder(new Vector3(0, 0, cylinderLength), Quaternion.identity).transform;
-		first = Instantiate(positionTextPrefab, new Vector3 (0, 0, firstZ), Quaternion.identity) as TextMesh;
-		first.text = "1st";
-		second = Instantiate(positionTextPrefab, new Vector3 (0, 0, ScoreList.getList()[1]), Quaternion.identity) as TextMesh;
-		second.text = "2nd";
-		third = Instantiate(positionTextPrefab, new Vector3 (0, 0, ScoreList.getList()[2]), Quaternion.identity) as TextMesh;
-		third.text = "3rd";
-		fourth = Instantiate(positionTextPrefab, new Vector3 (0, 0, ScoreList.getList()[3]), Quaternion.identity) as TextMesh;
-		fourth.text = "4th";
-		fifth = Instantiate(positionTextPrefab, new Vector3 (0, 0, ScoreList.getList()[4]), Quaternion.identity) as TextMesh;
-		fifth.text = "5th";
+
+		TextMesh textMesh;
+		for (int i = 0; i < offsets.Count; i++) {
+			textMesh = Instantiate(positionTextPrefab, new Vector3(0, 0, offsets[i]), Quaternion.identity) as TextMesh;
+			switch (i) {
+				case 4:
+					textMesh.text = "5th";
+					break;
+				case 3:
+					textMesh.text = "4th";
+					break;
+				case 2:
+					textMesh.text = "3rd";
+					break;
+				case 1:
+					textMesh.text = "2nd";
+					break;
+				case 0:
+					textMesh.text = "1st";
+					break;
+			}
+			Debug.Log (textMesh.text.ToString() + " " + offsets[i]);
+		}
 	}
 	
 	// Update is called once per frame
