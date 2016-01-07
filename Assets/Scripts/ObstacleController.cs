@@ -47,6 +47,7 @@ public class ObstacleController : MonoBehaviour
 			
     void onPlayerHit()
 	{
+        Debug.Log("collision");
         if(playerController.isInCollision() || playerController.isDead())
             return;
 
