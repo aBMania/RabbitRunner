@@ -4,8 +4,10 @@ using System;
 
 public class PlayerController : MonoBehaviour {
 
-	static float speed;
-	static float distance;
+	public GameObject canvas;
+
+	float speed;
+	float distance;
 	float angularSpeed;
 	float timeElapsed;
 	float direction;
@@ -15,6 +17,11 @@ public class PlayerController : MonoBehaviour {
 	bool inCollision = false;
 	bool stopped;
 	ObstacleColor color = ObstacleColor.White;
+	HUDManager hudManager;
+
+	void Awake() {
+		hudManager = canvas.GetComponent<HUDManager>();
+	}
 
     // Use this for initialization
     void Start() {
@@ -22,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (!dead && !stopped) {
+		if (!dead && !stopped && !hudManager.inTutorial()) {
 			direction = Input.GetAxis ("Horizontal");
 			timeElapsed += Time.deltaTime;
 			speed += Time.deltaTime * smoothing;
@@ -62,11 +69,11 @@ public class PlayerController : MonoBehaviour {
 		distance = transform.position.z;
 	}
 
-	public static float getSpeed() {
+	public float getSpeed() {
 		return speed;
 	}
 
-	public static float getDistance() {
+	public float getDistance() {
 		return distance;
 	}
 
@@ -90,7 +97,7 @@ public class PlayerController : MonoBehaviour {
         Score score = new Score(distance);
         ScoreList.add(score);
 
-        dead = true;
+		dead = true;
 	}
 
 	public bool isDead() {
@@ -103,5 +110,9 @@ public class PlayerController : MonoBehaviour {
 
 	public void setInCollision(bool coll) {
 		inCollision = coll;
+	}
+
+	public HUDManager getHUDManager() {
+		return hudManager;
 	}
 }

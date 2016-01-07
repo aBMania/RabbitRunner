@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour {
 	public Text pauseText;
 
 	bool created = false;
-	bool pause = false;
+	bool pause = true;
+	bool tutorial = true;
 	PlayerController playerController;
 	Button buttonClone = null;
-	Text tempPauseText;
+	Text tempPauseText = null;
 
 	// Use this for initialization
 	void Awake () {
@@ -30,15 +31,17 @@ public class GameManager : MonoBehaviour {
 		}
 
 		// simulates click on button from joystick or on return key down
-		if ((Input.GetKeyDown("joystick 1 button 0") || Input.GetKeyDown(KeyCode.Return)) && buttonClone != null) {
+		if ((Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.Return)) && buttonClone != null) {
 			buttonClone.onClick.Invoke();
 		}
 
-		// if the player isn't dead and if we pressed either return or button 0 from joystick
-		if ((Input.GetKeyDown("joystick 1 button 0") || Input.GetKeyDown(KeyCode.Return)) && !playerController.isDead()) {
+		// if the player isn't dead and if we pressed either return or button 0 from joystick (and if we're not in tutorial)
+		if ((Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.Return)) && !playerController.isDead() && !playerController.getHUDManager().inTutorial()) {
 			if (pause) {
 				pause = false;
-				Destroy(tempPauseText.gameObject);
+				if (tempPauseText != null) {
+					Destroy (tempPauseText.gameObject);
+				}
 				playerController.startRunning();
 			} else {
 				pause = true;
