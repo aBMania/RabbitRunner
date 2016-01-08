@@ -15,13 +15,11 @@ public class GameManager : MonoBehaviour {
 	PlayerController playerController;
 	Button buttonClone = null;
 	Text tempPauseText = null, scores = null;
-    AudioSource music;
 	Image image;
 
 	// Use this for initialization
 	void Awake () {
 		playerController = player.GetComponent<PlayerController>();
-        music = player.GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -58,16 +56,17 @@ public class GameManager : MonoBehaviour {
 					Destroy (tempPauseText.gameObject);
 				}
 				playerController.startRunning();
-                music.Play();
+                MusicManager.unpause();
 
             }
             else {
 				pause = true;
 				tempPauseText = instantiatePauseText();
 				playerController.stopRunning();
-                music.Pause();
-			}
-		}
+                MusicManager.pause();
+
+            }
+        }
 	}
 
 	Text instantiatePauseText() {

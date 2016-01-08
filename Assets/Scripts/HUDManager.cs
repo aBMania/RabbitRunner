@@ -15,6 +15,7 @@ public class HUDManager : MonoBehaviour {
 	Text instructions, distance, speed;
 	PlayerController playerController;
 	Image image;
+    PlaylistManager playlistManager = new PlaylistManager();
 
 	void Awake() {
 		playerController = player.GetComponent<PlayerController>();
@@ -46,6 +47,7 @@ public class HUDManager : MonoBehaviour {
 			Destroy(instructions);
 			Destroy(image);
 			displayInformations ();
+            MusicManager.play(playlistManager.NameRandomMusic(),0.5f,0.5f);
 		} else if (!tutorial) {
 			speed.text = "Speed: " + Mathf.Round(playerController.getSpeed() * 10f) / 10f + " km/h";
 			distance.text = "Distance: " + Mathf.Round(playerController.getDistance() * 10f) / 10f + " m";
