@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 public class HUDManager : MonoBehaviour {
 
@@ -15,7 +16,7 @@ public class HUDManager : MonoBehaviour {
 	Text instructions, distance, speed;
 	PlayerController playerController;
 	Image image;
-    PlaylistManager playlistManager = new PlaylistManager();
+	FileInfo[] fileInfo;
 
 	void Awake() {
 		playerController = player.GetComponent<PlayerController>();
@@ -23,6 +24,7 @@ public class HUDManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
+		fileInfo = (new DirectoryInfo(Application.dataPath + "/Resources")).GetFiles("*.*", SearchOption.TopDirectoryOnly);
 		image = Instantiate (imagePrefab, new Vector3 (Screen.width / 2, Screen.height / 2, 0), Quaternion.identity) as Image;
 		image.color = new Color32 (200, 200, 200, 175);
 		image.transform.SetParent (transform);
@@ -47,7 +49,7 @@ public class HUDManager : MonoBehaviour {
 			Destroy(instructions);
 			Destroy(image);
 			displayInformations ();
-            MusicManager.play(playlistManager.NameRandomMusic(),0.5f,0.5f);
+			MusicManager.play(getRandomMusic(),0.5f,0.5f);
 		} else if (!tutorial) {
 			speed.text = "Speed: " + Mathf.Round(playerController.getSpeed() * 10f) / 10f + " km/h";
 			distance.text = "Distance: " + Mathf.Round(playerController.getDistance() * 10f) / 10f + " m";
@@ -69,5 +71,17 @@ public class HUDManager : MonoBehaviour {
 		Text text = Instantiate(highscoreNotificationPrefab, new Vector3(10, Screen.height - 50, 0), Quaternion.identity) as Text;
 		text.transform.SetParent(transform);
 		return text;
+	}
+
+	string getRandomMusic() {
+		List<FileInfo> playlist = new List<FileInfo>();
+		foreach (FileInfo file in fileInfo) {
+			if (".mp3".Equals(file.Extension) || ".wav".Equals(file.Extension)) {
+				playlist.Add(file);
+			}
+		}
+		int songIndex = Random.Range(0, playlist.Count);
+		FileInfo song = playlist[songIndex];
+		return song.Name.Remove(song.Name.IndexOf(song.Extension), song.Extension.Length);
 	}
 }
